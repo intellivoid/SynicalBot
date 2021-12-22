@@ -16,19 +16,15 @@
     use Longman\TelegramBot\Exception\TelegramException;
     use Longman\TelegramBot\Request;
     use ppm\ppm;
-    use ProcLib\Abstracts\Types\StdType;
-    use ProcLib\Process;
-    use ProcLib\Utilities\PhpExecutableFinder;
     use VerboseAdventure\Abstracts\EventType;
     use VerboseAdventure\Classes\ErrorHandler;
     use VerboseAdventure\VerboseAdventure;
 
     // Import all required auto loaders
-    /** @noinspection PhpIncludeInspection */
     require('ppm');
 
     /** @noinspection PhpUnhandledExceptionInspection */
-    ppm::import('net.intellivoid.spam_protection_bot');
+    ppm::import('net.intellivoid.synical_bot');
 
     VerboseAdventure::setStdout(true); // Enable stdout
     ErrorHandler::registerHandlers(); // Register error handlers
@@ -36,9 +32,6 @@
     // Load all configurations
     /** @noinspection PhpUnhandledExceptionInspection */
     $TelegramServiceConfiguration = SynicalBot::getTelegramConfiguration();
-
-    /** @noinspection PhpUnhandledExceptionInspection */
-    $DatabaseConfiguration = SynicalBot::getDatabaseConfiguration();
 
     /** @noinspection PhpUnhandledExceptionInspection */
     $BackgroundWorkerConfiguration = SynicalBot::getBackgroundWorkerConfiguration();
@@ -102,37 +95,6 @@
         exit(255);
     }
 
-    // Start the verdict thread
-    $phpExecutableFinder = new PhpExecutableFinder();
-    $phpBinLocation = $phpExecutableFinder->find();
-    $VerdictThread = new Process([$phpBinLocation, getcwd() . DIRECTORY_SEPARATOR . 'verdict_worker']);
-    $VerdictCallbackThread = function ($type, $buffer)
-    {
-        $buffer_split = implode("\n", explode("\r\n", $buffer));
-        $buffer_split = explode("\n", $buffer_split);
-        foreach ($buffer_split as $item) {
-            if (strlen($item) == 0)
-            {
-                continue;
-            }
-            if (stripos($item, 'flush(gearman_could_not_connect)'))
-            {
-                continue;
-            }
-            switch (strtolower($type)) {
-                case "out":
-                case StdType::STDOUT:
-                    SynicalBot::getLogHandler()->log(EventType::INFO, $item, 'Verdict Thread');
-                    break;
-                case "err":
-                case StdType::STDERR:
-                    SynicalBot::getLogHandler()->log(EventType::ERROR, $item, 'Verdict Thread');
-                    break;
-            }
-        }
-    };
-    $VerdictThread->start($VerdictCallbackThread);
-
     $next_event_update = time() + 60;
     $total_update_count = 0;
 
@@ -141,10 +103,6 @@
     {
         /** @noinspection PhpUnhandledExceptionInspection */
         SynicalBot::$BackgroundWorker->getSupervisor()->monitor(TELEGRAM_BOT_NAME);
-        if($VerdictThread->isRunning() == false)
-        {
-            $VerdictThread->restart($VerdictCallbackThread);
-        }
 
         try
         {

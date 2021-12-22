@@ -5,14 +5,11 @@
     use acm2\acm2;
     use acm2\Objects\Schema;
     use BackgroundWorker\BackgroundWorker;
-    use CoffeeHouse\CoffeeHouse;
-    use DeepAnalytics\DeepAnalytics;
-    use SpamProtection\SpamProtection;
     use TelegramClientManager\TelegramClientManager;
     use VerboseAdventure\VerboseAdventure;
 
     /**
-     * Class SpamProtectionBot
+     * Class SynicalBot
      */
     class SynicalBot
     {
@@ -65,9 +62,8 @@
             $TelegramSchema->setDefinition('CustomEndpoint', 'http://127.0.0.1:8081');
             $TelegramSchema->setDefinition('CustomDownloadEndpoint', '/file/bot{API_KEY}');
             $TelegramSchema->setDefinition('MainOperators', []);
-            $TelegramSchema->setDefinition('LoggingChannel', 'SpamProtectionLogs');
+            $TelegramSchema->setDefinition('LoggingChannel', 'SynicalLogs');
             $TelegramSchema->setDefinition('VerboseLogging', false);
-
             $acm->defineSchema($TelegramSchema);
 
             $BackgroundWorkerSchema = new Schema();
@@ -76,6 +72,15 @@
             $BackgroundWorkerSchema->setDefinition('Port', 4730);
             $BackgroundWorkerSchema->setDefinition('MaxWorkers', 5);
             $acm->defineSchema($BackgroundWorkerSchema);
+
+            $DatabaseSchema = new Schema();
+            $DatabaseSchema->setName('Database');
+            $DatabaseSchema->setDefinition('Host', '127.0.0.1');
+            $DatabaseSchema->setDefinition('Port', 3306);
+            $DatabaseSchema->setDefinition('Username', 'root');
+            $DatabaseSchema->setDefinition('Password', 'admin');
+            $DatabaseSchema->setDefinition('Database', 'telegram');
+            $acm->defineSchema($DatabaseSchema);
 
             $RedisSchema = new Schema();
             $RedisSchema->setName('Redis');
@@ -101,16 +106,6 @@
             return self::autoConfig()->getConfiguration('TelegramService');
         }
 
-        /**
-         * Returns the database configuration
-         *
-         * @return mixed
-         * @throws Exception
-         */
-        public static function getDatabaseConfiguration()
-        {
-            return self::autoConfig()->getConfiguration('Database');
-        }
 
         /**
          * Returns the redis configuration
@@ -133,6 +128,17 @@
         public static function getBackgroundWorkerConfiguration()
         {
             return self::autoConfig()->getConfiguration('BackgroundWorker');
+        }
+
+        /**
+         * Returns the database configuration
+         *
+         * @return mixed
+         * @throws Exception
+         */
+        public static function getDatabaseConfiguration()
+        {
+            return self::autoConfig()->getConfiguration('Database');
         }
 
         /**

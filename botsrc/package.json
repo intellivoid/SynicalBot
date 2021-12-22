@@ -2,7 +2,7 @@
     "package": {
         "package_name": "net.intellivoid.synical_bot",
         "name": "Telegram SynicalBot",
-        "version": "3.0.0.0",
+        "version": "1.0.0.0",
         "author": "Zi Xing Narrakas",
         "organization": "Intellivoid",
         "description": "A next-generation group management bot",
@@ -18,24 +18,6 @@
                 "package": "net.intellivoid.background_worker",
                 "version": "latest",
                 "source": "default@github/intellivoid/BackgroundWorker",
-                "required": true
-            },
-            {
-                "package": "net.intellivoid.coffeehouse",
-                "version": "latest",
-                "source": "default@github/intellivoid/coffeehouse",
-                "required": true
-            },
-            {
-                "package": "net.intellivoid.deepanalytics",
-                "version": "latest",
-                "source": "default@github/intellivoid/DeepAnalytics",
-                "required": true
-            },
-            {
-                "package": "net.intellivoid.spam_protection",
-                "version": "latest",
-                "source": "default@github/intellivoid/SpamProtection",
                 "required": true
             },
             {
@@ -101,133 +83,17 @@
     "components": [
         {
             "required": true,
-            "file": "commands/AgdemoteCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/AgpromoteCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/AppealCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/BakaMitaiCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/BlacklistCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/BlCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/CallbackqueryCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/CheckAppealCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/CreateInviteCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/FinalVerdictCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/GenericmessageCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/HelpCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/LanguageCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/LCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/LogCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/MsgInfoCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/NewchatmembersCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/OpdemoteCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/OppromoteCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/PredictionsCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/PropCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/ResetCacheCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/ResetPredictionsCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/SettingsCommand.php"
+            "file": "SynicalBot.php"
         },
         {
             "required": true,
             "file": "commands/StartCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/StatsCommand.php"
-        },
-        {
-            "required": true,
-            "file": "commands/WhoisCommand.php"
-        },
-        {
-            "required": true,
-            "file": "SpamProtectionBot.php"
         }
     ],
     "files": [
-        ".htaccess",
-        "commands/help_docs/blacklist_flags.html",
-        "commands/help_docs/false_detections.html",
-        "commands/help_docs/help.html",
-        "commands/help_docs/help.png",
-        "commands/help_docs/language.html",
-        "commands/help_docs/msginfo.html",
-        "commands/help_docs/settings.html",
-        "commands/help_docs/spam_protection.html",
-        "commands/help_docs/start.html",
-        "commands/help_docs/unwanted_users.html",
-        "commands/help_docs/whois.html",
-        "main",
         "package.json",
-        "verdict_worker",
-        "worker"
+        "worker",
+        ".htaccess",
+        "main"
     ]
 }
