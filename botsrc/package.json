@@ -83,17 +83,21 @@
     "components": [
         {
             "required": true,
-            "file": "SynicalBot.php"
+            "file": "commands/InfoCommand.php"
         },
         {
             "required": true,
             "file": "commands/StartCommand.php"
+        },
+        {
+            "required": true,
+            "file": "SynicalBot.php"
         }
     ],
     "files": [
-        "package.json",
-        "worker",
         ".htaccess",
-        "main"
+        "main",
+        "package.json",
+        "worker"
     ]
 }
