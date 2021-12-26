@@ -5,7 +5,8 @@
     use acm2\acm2;
     use acm2\Objects\Schema;
     use BackgroundWorker\BackgroundWorker;
-    use TelegramClientManager\TelegramClientManager;
+use Synical\Synical;
+use TelegramClientManager\TelegramClientManager;
     use VerboseAdventure\VerboseAdventure;
 
     /**
@@ -31,6 +32,11 @@
          * @var TelegramClientManager
          */
         public static $TelegramClientManager;
+
+        /**
+         * @var Synical
+         */
+        public static $SynicalEngine;
 
         /**
          * @var BackgroundWorker
@@ -218,6 +224,7 @@
                 if(self::isSleeping() == false)
                 {
                     self::getTelegramClientManager()->disconnectDatabase();
+                    self::getSynicalEngine()->disconnectDatabase();
                     self::setIsSleeping(true);
                 }
             }
@@ -226,8 +233,17 @@
                 if(self::isSleeping() == true)
                 {
                     self::getTelegramClientManager()->connectDatabase();
+                    self::getSynicalEngine()->connectDatabase();
                     self::setIsSleeping(false);
                 }
             }
+        }
+
+        /**
+         * @return Synical
+         */
+        public static function getSynicalEngine(): Synical
+        {
+            return self::$SynicalEngine;
         }
     }

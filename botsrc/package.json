@@ -67,6 +67,12 @@
                 "version": "latest",
                 "source": "default@github/intellivoid/ProcLib",
                 "required": true
+            },
+            {
+                "package": "net.intellivoid.synical",
+                "version": "latest",
+                "source": "default@github/intellivoid/Synical",
+                "required": true
             }
         ],
         "configuration": {
@@ -83,21 +89,25 @@
     "components": [
         {
             "required": true,
+            "file": "SynicalBot.php"
+        },
+        {
+            "required": true,
+            "file": "AdminCommands/AdminCacheCommand.php"
+        },
+        {
+            "required": true,
             "file": "commands/InfoCommand.php"
         },
         {
             "required": true,
             "file": "commands/StartCommand.php"
-        },
-        {
-            "required": true,
-            "file": "SynicalBot.php"
         }
     ],
     "files": [
-        ".htaccess",
-        "main",
         "package.json",
-        "worker"
+        "worker",
+        ".htaccess",
+        "main"
     ]
 }

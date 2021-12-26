@@ -15,6 +15,7 @@
     use Longman\TelegramBot\TelegramLog;
     use Longman\TelegramBot\Request;
     use ppm\ppm;
+    use Synical\Synical;
     use TelegramClientManager\TelegramClientManager;
     use VerboseAdventure\Abstracts\EventType;
     use VerboseAdventure\Classes\ErrorHandler;
@@ -99,10 +100,12 @@
         if(file_exists($current_directory . DIRECTORY_SEPARATOR . 'SynicalBot.php'))
         {
             $telegram->addCommandsPaths([$current_directory . DIRECTORY_SEPARATOR . 'commands']);
+            $telegram->addCommandsPaths([$current_directory . DIRECTORY_SEPARATOR . 'AdminCommands']);
         }
         elseif(file_exists(__DIR__ . DIRECTORY_SEPARATOR . 'SynicalBot.php'))
         {
             $telegram->addCommandsPaths([__DIR__ . DIRECTORY_SEPARATOR . 'commands']);
+            $telegram->addCommandsPaths([__DIR__ . DIRECTORY_SEPARATOR . 'AdminCommands']);
         }
         else
         {
@@ -147,6 +150,13 @@
     if(SynicalBot::$TelegramClientManager->getDatabase()->connect_error)
     {
         SynicalBot::getLogHandler()->log(EventType::ERROR, 'Failed to initialize TelegramClientManager, ' . SynicalBot::$TelegramClientManager->getDatabase()->connect_error, 'Worker');
+        exit(255);
+    }
+
+    SynicalBot::$SynicalEngine = new Synical();
+    if(SynicalBot::$SynicalEngine->getDatabase()->connect_error)
+    {
+        SynicalBot::getLogHandler()->log(EventType::ERROR, 'Failed to initialize SynicalEngine, ' . SynicalBot::$SynicalEngine->getDatabase()->connect_error, 'Worker');
         exit(255);
     }
 
