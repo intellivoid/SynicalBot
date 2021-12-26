@@ -93,6 +93,10 @@
         },
         {
             "required": true,
+            "file": "AdminCommands/BanCommand.php"
+        },
+        {
+            "required": true,
             "file": "AdminCommands/AdminCacheCommand.php"
         },
         {

@@ -3,11 +3,16 @@
     namespace AdminCommands;
 
     use Longman\TelegramBot\Commands\UserCommand;
+    use Longman\TelegramBot\Entities\Chat;
+    use Longman\TelegramBot\Entities\ChatMember\ChatMember;
+    use Longman\TelegramBot\Entities\Message;
     use Longman\TelegramBot\Entities\ServerResponse;
+    use Longman\TelegramBot\Entities\Update;
     use Longman\TelegramBot\Exception\TelegramException;
     use Longman\TelegramBot\Request;
     use Synical\Exceptions\CannotUpdateChatMembersCacheException;
     use Synical\Exceptions\DatabaseException;
+    use Synical\Objects\ChatMemberCache;
     use SynicalBot;
     use TelegramClientManager\Abstracts\TelegramChatType;
     use TelegramClientManager\Exceptions\InvalidSearchMethod;
@@ -110,5 +115,45 @@
                         'Object: <code>AdminCache</code>'
                 ]);
             }
+        }
+
+        /**
+         * Returns the chat member cache
+         *
+         * @param Message $message
+         * @return ChatMemberCache|null
+         * @throws TelegramException
+         */
+        public static function getChatMemberCache(Message $message): ?ChatMemberCache
+        {
+            try
+            {
+                return SynicalBot::getSynicalEngine()->getChatMemberCacheManager()->getChatMemberCache($message->getChat());
+            }
+            catch (CannotUpdateChatMembersCacheException $e)
+            {
+                Request::sendMessage([
+                    'chat_id' => $message->getChat()->getId(),
+                    'reply_to_message_id' => $message->getMessageId(),
+                    'parse_mode' => 'html',
+                    'text' => 'Failed to update chat member cache, try again later.'
+                ]);
+            }
+            catch (DatabaseException $e)
+            {
+                $ReferenceID = SynicalBot::getLogHandler()->logException($e, 'Worker');
+                /** @noinspection PhpUnhandledExceptionInspection */
+                Request::sendMessage([
+                    'chat_id' => $message->getChat()->getId(),
+                    'reply_to_message_id' => $message->getMessageId(),
+                    'parse_mode' => 'html',
+                    'text' =>
+                        'Oops! Something went wrong! contact someone in @IntellivoidDiscussions\n\n' .
+                        'Error Code: <code>' . $ReferenceID . '</code>\n' .
+                        'Object: <code>AdminCacheGet</code>'
+                ]);
+            }
+
+            return null;
         }
     }
