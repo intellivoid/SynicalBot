@@ -93,6 +93,10 @@
         },
         {
             "required": true,
+            "file": "AdminCommands/UnbanCommand.php"
+        },
+        {
+            "required": true,
             "file": "AdminCommands/BanCommand.php"
         },
         {
