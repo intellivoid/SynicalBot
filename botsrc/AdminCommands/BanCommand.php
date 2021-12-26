@@ -24,7 +24,7 @@
         /**
          * @var string
          */
-        protected $description = 'Bans the targetted user from the chat';
+        protected $description = 'Bans the targeted user from the chat';
 
         /**
          * @var string
@@ -93,19 +93,31 @@
                 ]);
             }
 
-            $TargetUser = $DetectedClients->findTarget(true);
+            try
+            {
+                $TargetUser = SynicalBot\Utilities::findTarget($this->getMessage(), $DetectedClients);
+            }
+            catch(SynicalBot\Exceptions\CannotFindTargetUserException $e)
+            {
+                return Request::sendMessage([
+                    'chat_id' => $this->getMessage()->getChat()->getId(),
+                    'reply_to_message_id' => $this->getMessage()->getMessageId(),
+                    'parse_mode' => 'html',
+                    'text' => 'Cannot resolve user. If you reply to one of their messages, I\'ll be able to interact with them.'
+                ]);
+            }
+
             if($TargetUser == null)
             {
                 return Request::sendMessage([
                     'chat_id' => $this->getMessage()->getChat()->getId(),
                     'reply_to_message_id' => $this->getMessage()->getMessageId(),
                     'parse_mode' => 'html',
-                    'text' => 'This command requires a user to be specified, try tagging the user or replying to said user.'
+                    'text' => 'You need to specify a user to ban'
                 ]);
             }
-            $TargetID = ($TargetUser->User == null ? $TargetUser->Chat->ID : $TargetUser->User->ID);
 
-            $TargetPermissions = $ChatMemberCache->getAdministratorUser($TargetID);
+            $TargetPermissions = $ChatMemberCache->getAdministratorUser($TargetUser->User->ID);
             if($TargetPermissions !== null)
             {
                 if($TargetPermissions->IsOwner)
@@ -131,7 +143,7 @@
 
             $BanResults = Request::banChatMember([
                 'chat_id' => $this->getMessage()->getChat()->getId(),
-                'user_id' => $TargetID
+                'user_id' => $TargetUser->User->ID
             ]);
 
             if($BanResults->isOk())
@@ -148,7 +160,7 @@
                 'chat_id' => $this->getMessage()->getChat()->getId(),
                 'reply_to_message_id' => $this->getMessage()->getMessageId(),
                 'parse_mode' => 'html',
-                'text' => $BanResults->getDescription()
+                'text' => $BanResults->getDescription() . ' (' . $BanResults->getErrorCode() . ')'
             ]);
         }
     }

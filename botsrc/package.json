@@ -101,6 +101,14 @@
         },
         {
             "required": true,
+            "file": "SynicalBot/Utilities.php"
+        },
+        {
+            "required": true,
+            "file": "SynicalBot/Exceptions/CannotFindTargetUserException.php"
+        },
+        {
+            "required": true,
             "file": "commands/InfoCommand.php"
         },
         {
