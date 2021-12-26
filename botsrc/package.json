@@ -93,6 +93,10 @@
         },
         {
             "required": true,
+            "file": "AdminCommands/KickCommand.php"
+        },
+        {
+            "required": true,
             "file": "AdminCommands/UnbanCommand.php"
         },
         {
