@@ -13,11 +13,11 @@ build:
 
 install:
 	# Installs the compiled package to the system
-	ppm --fix-conflict --no-prompt --install="build/net.intellivoid.synical_bot.ppm" --branch="production"
+	ppm --fix-conflict --no-prompt --install="build/net.intellivoid.synical_bot.ppm" --branch="master"
 
 install_fast:
 	# Installs the compiled package to the system
-	ppm --fix-conflict --no-prompt --skip-dependencies --install="build/net.intellivoid.synical_bot.ppm" --branch="production"
+	ppm --fix-conflict --no-prompt --skip-dependencies --install="build/net.intellivoid.synical_bot.ppm" --branch="master"
 
 run:
 	# Runs the bot

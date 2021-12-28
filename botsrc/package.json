@@ -89,7 +89,11 @@
     "components": [
         {
             "required": true,
-            "file": "SynicalBot.php"
+            "file": "AdminCommands/AdminCacheCommand.php"
+        },
+        {
+            "required": true,
+            "file": "AdminCommands/BanCommand.php"
         },
         {
             "required": true,
@@ -101,15 +105,11 @@
         },
         {
             "required": true,
-            "file": "AdminCommands/BanCommand.php"
+            "file": "commands/InfoCommand.php"
         },
         {
             "required": true,
-            "file": "AdminCommands/AdminCacheCommand.php"
-        },
-        {
-            "required": true,
-            "file": "SynicalBot/Utilities.php"
+            "file": "commands/StartCommand.php"
         },
         {
             "required": true,
@@ -117,17 +117,17 @@
         },
         {
             "required": true,
-            "file": "commands/InfoCommand.php"
+            "file": "SynicalBot/Utilities.php"
         },
         {
             "required": true,
-            "file": "commands/StartCommand.php"
+            "file": "SynicalBot.php"
         }
     ],
     "files": [
-        "package.json",
-        "worker",
         ".htaccess",
-        "main"
+        "main",
+        "package.json",
+        "worker"
     ]
 }

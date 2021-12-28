@@ -82,7 +82,7 @@
                 return Request::emptyResponse();
             }
 
-            $CallerPermissions = $ChatMemberCache->getAdministratorUser($this->getMessage()->getFrom()->getId());
+            $CallerPermissions = $ChatMemberCache->getAdministratorUser($this->getMessage()->getFrom());
             if($CallerPermissions == null || $CallerPermissions->CanRestrictMembers == false)
             {
                 return Request::sendMessage([

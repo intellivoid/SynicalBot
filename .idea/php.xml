@@ -6,11 +6,13 @@
       <path value="//wsl$/Ubuntu-20.04/usr/share/php" />
       <path value="//wsl$/Ubuntu-20.04/etc/ppm/includes" />
       <path value="//wsl$/Ubuntu-20.04/etc/ppm/packages/net.intellivoid.tdlib==1.0.1.3" />
-      <path value="//wsl$/Ubuntu-20.04/etc/ppm/packages/net.intellivoid.telegram_client_manager==2.0.0.6" />
       <path value="//wsl$/Ubuntu-20.04/etc/ppm/packages/net.intellivoid.background_worker==1.0.2.6" />
       <path value="//wsl$/Ubuntu-20.04/etc/ppm/packages/net.intellivoid.msqg==1.0.0.2" />
       <path value="//wsl$/Ubuntu-20.04/etc/ppm/packages/net.intellivoid.verbose_adventure==1.0.0.4" />
       <path value="//wsl$/Ubuntu-20.04/etc/ppm/packages/net.intellivoid.acm2==1.0.0.2" />
+      <path value="//wsl$/Ubuntu-20.04/etc/ppm/packages/net.intellivoid.pop==1.0.0.2" />
+      <path value="//wsl$/Ubuntu-20.04/etc/ppm/packages/net.intellivoid.synical==1.0.0.0" />
+      <path value="//wsl$/Ubuntu-20.04/etc/ppm/packages/net.intellivoid.telegram_client_manager==2.0.1.0" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
@@ -88,7 +90,7 @@
       </interpreter>
     </phpInfoCache>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.1">
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.0">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
 </project>
